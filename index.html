@@ -36,9 +36,9 @@
                             ctx.beginPath();
                             ctx.moveTo(x+50, y+105);
                             ctx.lineTo(x+25, y+75);
-                            ctx.arc(x+37.5, y+75, 25, Math.PI, 2*Math.PI);
+                            ctx.arcTo(x+25, y+75, x+50, y+75, 12.5);
                             ctx.moveTo(x+50, y+75);
-                            ctx.arc(x+62.5, y+75, 25, Math.PI, 2*Math.PI);
+                            ctx.arcTo(x+50, y+75, x+75, y+75, 12.5);
                             ctx.moveTo(x+75, y+75);
                             ctx.lineTo(x+50, y+105);
                             ctx.fill();
