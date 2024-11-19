@@ -97,9 +97,9 @@
                     // Draw the card's value in the top left and bottom right
                     ctx.font = "16px Arial";
                     ctx.textBaseline = "top";
-                    ctx.fillText(name.slice(1), 10, 10);
+                    ctx.fillText(name.slice(1), x+10, y+10);
                     ctx.textBaseline = "bottom";
-                    ctx.fillText(name.slice(1), 90-ctx.measureText(name.slice(1)), 140);
+                    ctx.fillText(name.slice(1), x+90-ctx.measureText(name.slice(1)), y+140);
                 }
             }
 
