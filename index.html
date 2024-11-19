@@ -16,8 +16,20 @@
         <script>
             const canvas = document.getElementById("blackjackCanvas");
             const ctx = canvas.getContext("2d");
-            ctx.fillStyle = "blue";
-            ctx.fillRect(0, 0, 10, 10);
+            function drawCard(name, x, y, faceUp) {
+                ctx.strokeStyle = "black";
+                ctx.lineWidth = 2;
+                if (!faceUp) {
+                    ctx.fillStyle = "blue";
+                }
+                else {
+                    ctx.fillStyle = "white";
+                }
+                ctx.fillRect(x, y, 100, 150);
+            }
+
+            drawCard("empty", 50, 50, true);
+            drawCard("empty", 200, 70, false);
         </script>
     </body>
 </html>
