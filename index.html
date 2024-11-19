@@ -32,7 +32,17 @@
                 if (faceUp) {
                     switch (name.slice(0, 1)) {
                         case "H":
-                            
+                            ctx.fillStyle = "red";
+                            ctx.beginPath();
+                            ctx.moveTo(x+50, y+105);
+                            ctx.lineTo(x+25, y+75);
+                            ctx.arc(x+37.5, y+75, 25, Math.PI, 2*Math.PI);
+                            ctx.moveTo(x+50, y+75);
+                            ctx.arc(x+62.5, y+75, 25, Math.PI, 2*Math.PI);
+                            ctx.moveTo(x+75, y+75);
+                            ctx.lineTo(x+50, y+105);
+                            ctx.fill();
+                            ctx.closePath();
                         break;
                         case "D":
                             ctx.fillStyle = "red";
@@ -56,6 +66,7 @@
             }
 
             drawCard("D4", 50, 50, true);
+            drawCard("HA", 50, 210, true);
             drawCard("empty", 200, 70, false);
         </script>
     </body>
