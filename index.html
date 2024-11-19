@@ -18,6 +18,7 @@
             const ctx = canvas.getContext("2d");
             
             function drawCard(name, x, y, faceUp) {
+                // Set the border and background (if the card is facedown, draw the back).
                 ctx.strokeStyle = "black";
                 ctx.lineWidth = 6;
                 if (!faceUp) {
@@ -29,6 +30,7 @@
                 ctx.strokeRect(x, y, 100, 150);
                 ctx.fillRect(x, y, 100, 150);
 
+                // Draw the face of the card.
                 if (faceUp) {
                     switch (name.slice(0, 1)) {
                         case "H":
@@ -76,9 +78,28 @@
                             ctx.closePath();
                         break;
                         case "C":
-                            
+                            ctx.fillStyle = "black";
+                            ctx.beginPath();
+                                // Triangle "stem"
+                                ctx.moveTo(x+40, y+105);
+                                ctx.lineTo(x+50, y+85);
+                                ctx.lineTo(x+60, y+105);
+                                ctx.lineTo(x+40, y+105);
+                                // Club tip
+                                ctx.arc(x+40, y+85, 10, 0, Math.PI*2);
+                                ctx.arc(x+60, y+85, 10, 0, Math.PI*2);
+                                ctx.arc(x+50, y+75, 10, 0, Math.PI*2);
+                                ctx.fill();
+                            ctx.closePath();
                         break;
                     }
+
+                    // Draw the card's value in the top left and bottom right
+                    ctx.font = "16px Arial";
+                    ctx.textBaseline = "top";
+                    ctx.fillText(name.slice(1), 10, 10);
+                    ctx.textBaseline = "bottom";
+                    ctx.fillText(name.slice(1), 90-ctx.measureText(name.slice(1)), 140);
                 }
             }
 
