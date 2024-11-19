@@ -14,8 +14,10 @@
     <body>
         <canvas id="blackjackCanvas" width=1000 height=500 style="border: 15px outset #002C12"</canvas>
         <script>
-            ctx=document.getElementById("blackjackCanvas");
-            ctx.rect(0, 0, 10, 10);
+            const canvas = document.getElementById("blackjackCanvas");
+            const ctx = canvas.getContext("2d");
+            ctx.fillStyle = rgb(0, 20, 200);
+            ctx.fillRect(0, 0, 10, 10);
         </script>
     </body>
 </html>
