@@ -46,25 +46,32 @@
                 spades = document.getElementById("spades");
                 clubs = document.getElementById("clubs");
                 
-                hearts.classList.remove("hidden");
-                diamonds.classList.remove("hidden");
-                spades.classList.remove("hidden");
-                clubs.classList.remove("hidden");
-                
                 // Draw the face of the card.
                 if (faceUp) {
                     switch (name.slice(0, 1)) {
                         case "H":
+                            ctx.fillStyle = "red";
+                            $("hearts").toggleClass("hidden");
                             ctx.drawImage(hearts, x, y);
+                            $("hearts").toggleClass("hidden");
                         break;
                         case "D":
+                            ctx.fillStyle = "red";
+                            $("diamonds").toggleClass("hidden");
                             ctx.drawImage(diamonds, x, y);
+                            $("diamonds").toggleClass("hidden");
                         break;
                         case "S":
+                            ctx.fillStyle = "black";
+                            $("spades").toggleClass("hidden");
                             ctx.drawImage(spades, x, y);
+                            $("spades").toggleClass("hidden");
                         break;
                         case "C":
+                            ctx.fillStyle = "black";
+                            $("clubs").toggleClass("hidden");
                             ctx.drawImage(clubs, x, y);
+                            $("clubs").toggleClass("hidden");
                         break;
                     }
 
