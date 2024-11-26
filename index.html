@@ -80,21 +80,28 @@
                 }
             }
 
-            var deck = [];
-
-            for (var i = 0; i < 4; i++) {
-                var suits = ["H", "D", "S", "C"];
-                for (var j = 2; j < 15; j++) {
-                    var value = j === 11? "J": j === 12? "Q": j === 13? "K": j === 14? "A": j.toString()
-                deck.push(suits[i] + value);
+            function initializeDeck() {
+                var deck = [];
+    
+                for (var i = 0; i < 4; i++) {
+                    var suits = ["H", "D", "S", "C"];
+                    for (var j = 2; j < 15; j++) {
+                        var value = j === 11? "J": j === 12? "Q": j === 13? "K": j === 14? "A": j.toString()
+                    deck.push(suits[i] + value);
+                    }
                 }
+
+                // Thanks StackOverflow :D
+                // I was wondering if this was fast enough
+                for (var i = deck.length - 1; i >= 0; i--) {
+                    var j = Math.floor(Math.random() * (i + 1));
+                    [deck[i], deck[j]] = [deck[j], deck[i]];
+                }
+
+                return deck;
             }
 
-            console.log(deck);
-
-            for (var i = 0; i < deck.length; i++) {
-                drawCard(deck[i], 50 * i + 5, 20, true); 
-            }
+            deck = initializeDeck();
         </script>
     </body>
 </html>
