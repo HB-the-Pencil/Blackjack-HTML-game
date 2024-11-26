@@ -73,9 +73,17 @@
                     }
 
                     // Draw the card's value in the top left and bottom right
-                    ctx.font = "8px Arial";
+                    ctx.font = "12px Arial";
                     ctx.textBaseline = "top";
                     ctx.fillText(name.slice(1), x+10, y+10);
+                    
+                    ctx.textBaseline = "bottom";
+                    ctx.fillText(name.slice(1), x+40-ctx.measureText(name.slice(1)).width, y+65);
+
+                    hearts.classList.add("hidden");
+                    diamonds.classList.add("hidden");
+                    spades.classList.add("hidden");
+                    clubs.classList.add("hidden");
                 }
             }
 
