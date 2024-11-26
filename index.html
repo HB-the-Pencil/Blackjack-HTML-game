@@ -18,6 +18,11 @@
         </style>
     </head>
     <body>
+        <img id="hearts" src="images/hearts.png" class="hidden">
+        <img id="diamonds" src="images/diamonds.png" class="hidden">
+        <img id="spades" src="images/spades.png" class="hidden">
+        <img id="clubs" src="images/clubs.png" class="hidden">
+        
         <canvas id="blackjackCanvas" width=1000 height=500 style="border: 15px outset #002C12"</canvas>
         <script>
             const canvas = document.getElementById("blackjackCanvas");
@@ -41,10 +46,10 @@
                 spades = document.getElementById("spades");
                 clubs = document.getElementById("clubs");
                 
-                hearts.classList.remove(hidden);
-                diamonds.classList.remove(hidden);
-                spades.classList.remove(hidden);
-                clubs.classList.remove(hidden);
+                hearts.classList.remove("hidden");
+                diamonds.classList.remove("hidden");
+                spades.classList.remove("hidden");
+                clubs.classList.remove("hidden");
                 
                 // Draw the face of the card.
                 if (faceUp) {
@@ -76,10 +81,5 @@
             drawCard("CJ", 160, 210, true);
             drawCard("C10", 220, 210, false);
         </script>
-
-        <img id = "hearts" src="images/hearts.png" class="hidden">
-        <img id = "diamonds" src="images/diamonds.png" class="hidden">
-        <img id = "spades" src="images/spades.png" class="hidden">
-        <img id = "clubs" src="images/clubs.png" class="hidden">
     </body>
 </html>
