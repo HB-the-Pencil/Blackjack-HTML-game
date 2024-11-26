@@ -27,70 +27,23 @@
                 else {
                     ctx.fillStyle = "white";
                 }
-                ctx.strokeRect(x, y, 100, 150);
-                ctx.fillRect(x, y, 100, 150);
+                ctx.strokeRect(x, y, 50, 75);
+                ctx.fillRect(x, y, 50, 75);
 
                 // Draw the face of the card.
                 if (faceUp) {
                     switch (name.slice(0, 1)) {
                         case "H":
-                            ctx.fillStyle = "red";
-                            ctx.beginPath();
-                                // Triangle at the base of the heart
-                                ctx.moveTo(x+50, y+105);
-                                ctx.lineTo(x+25, y+75);
-                                ctx.lineTo(x+75, y+75);
-                                ctx.lineTo(x+50, y+105);
-                                // Bubbles at the top of the heart
-                                ctx.arc(x+37.5, y+75, 12.5, Math.PI, Math.PI*2);
-                                ctx.arc(x+62.5, y+75, 12.5, Math.PI, Math.PI*2);
-                                ctx.fill();
-                            ctx.closePath();
+                            ctx.drawImage("images/hearts.png", x, y);
                         break;
                         case "D":
-                            ctx.fillStyle = "red";
-                            ctx.beginPath();
-                                // Mate it's a diamond what comments do you still need
-                                ctx.moveTo(x+50, y+105);
-                                ctx.lineTo(x+25, y+75);
-                                ctx.lineTo(x+50, y+45);
-                                ctx.lineTo(x+75, y+75);
-                                ctx.lineTo(x+50, y+105);
-                                ctx.fill();
-                            ctx.closePath();
+                            ctx.drawImage("images/diamonds.png", x, y);
                         break;
                         case "S":
-                            ctx.fillStyle = "black";
-                            ctx.beginPath();
-                                // Triangle "stem"
-                                ctx.moveTo(x+40, y+105);
-                                ctx.lineTo(x+50, y+85);
-                                ctx.lineTo(x+60, y+105);
-                                ctx.lineTo(x+40, y+105);
-                                // Spade tip (basically an inverted heart)
-                                ctx.arc(x+40, y+85, 10, 0, Math.PI);
-                                ctx.arc(x+60, y+85, 10, 0, Math.PI);
-                                ctx.moveTo(x+30, y+85);
-                                ctx.lineTo(x+50, y+50);
-                                ctx.lineTo(x+70, y+85);
-                                ctx.lineTo(x+30, y+85);
-                                ctx.fill();
-                            ctx.closePath();
+                            ctx.drawImage("images/spades.png", x, y);
                         break;
                         case "C":
-                            ctx.fillStyle = "black";
-                            ctx.beginPath();
-                                // Triangle "stem"
-                                ctx.moveTo(x+40, y+105);
-                                ctx.lineTo(x+50, y+85);
-                                ctx.lineTo(x+60, y+105);
-                                ctx.lineTo(x+40, y+105);
-                                // Club tip
-                                ctx.arc(x+40, y+85, 10, 0, Math.PI*2);
-                                ctx.arc(x+60, y+85, 10, 0, Math.PI*2);
-                                ctx.arc(x+50, y+75, 10, 0, Math.PI*2);
-                                ctx.fill();
-                            ctx.closePath();
+                            ctx.drawImage("images/clubs.png", x, y);
                         break;
                     }
 
