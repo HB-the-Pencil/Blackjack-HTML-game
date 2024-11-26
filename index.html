@@ -29,7 +29,7 @@
             const canvas = document.getElementById("blackjackCanvas");
             const ctx = canvas.getContext("2d");
             
-            function drawCard(name, x, y, faceUp) {
+            function drawCard(name, x, y, faceUp = true) {
                 // Set the border and background (if the card is facedown, draw the back).
                 ctx.strokeStyle = "black";
                 ctx.lineWidth = 6;
@@ -91,6 +91,10 @@
             }
 
             console.log(deck);
+
+            for (var i = 0; i < deck.length; i++) {
+                drawCard(deck[i], 50 * i + 5, 20, true); 
+            }
         </script>
     </body>
 </html>
