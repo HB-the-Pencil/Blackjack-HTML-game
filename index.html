@@ -12,8 +12,9 @@
         <title>Blackjack Game</title>
 
         <style>
-            .hidden {
-                display : none;
+            img {
+                display: none;
+                padding: 0px;
             }
         </style>
     </head>
@@ -73,17 +74,51 @@
                     }
 
                     // Draw the card's value in the corner
-                    ctx.font = "12px Arial Bold";
+                    ctx.font = "12px Arial";
                     ctx.textBaseline = "top";
                     ctx.fillText(name.slice(1), x+10, y+10);
                 }
             }
 
-            drawCard("D4", 50, 50, true);
-            drawCard("HA", 50, 210, true);
-            drawCard("SK", 160, 50, true);
-            drawCard("CJ", 160, 210, true);
-            drawCard("C10", 220, 210, false);
+            var deck = [];
+
+            for (var i = 0; i < 4; i++) {
+                switch (i) {
+                    case 0:
+                        string = "H";
+                    break;
+                    case 1:
+                        string = "D";
+                    break;
+                    case 2:
+                        string = "S";
+                    break;
+                    case 3:
+                        string = "C";
+                    break;
+                }
+                for (var j = 2; j < 15; j++) {
+                    switch (j) {
+                        case 11:
+                            string += "J";
+                        break;
+                        case 12:
+                            string += "Q";
+                        break;
+                        case 13:
+                            string += "K";
+                        break;
+                        case 14:
+                            string += "A";
+                        break;
+                        default:
+                            string += j.toString();
+                    }
+                deck.push(string);
+                }
+            }
+
+            console.log(deck);
         </script>
     </body>
 </html>
