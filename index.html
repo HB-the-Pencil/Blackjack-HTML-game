@@ -98,8 +98,6 @@
                     ctx.font = "16px Arial";
                     ctx.textBaseline = "top";
                     ctx.fillText(name.slice(1), x+10, y+10);
-                    ctx.textBaseline = "bottom";
-                    ctx.fillText(name.slice(1), x+90-ctx.measureText(name.slice(1)), y+140);
                 }
             }
 
@@ -107,6 +105,7 @@
             drawCard("HA", 50, 210, true);
             drawCard("SK", 160, 50, true);
             drawCard("CJ", 160, 210, true);
+            drawCard("C10", 220, 210, false);
         </script>
     </body>
 </html>
