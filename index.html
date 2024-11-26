@@ -45,38 +45,35 @@
                 diamonds = document.getElementById("diamonds");
                 spades = document.getElementById("spades");
                 clubs = document.getElementById("clubs");
+
+                hearts.classList.remove("hidden");
+                diamonds.classList.remove("hidden");
+                spades.classList.remove("hidden");
+                clubs.classList.remove("hidden");
                 
                 // Draw the face of the card.
                 if (faceUp) {
                     switch (name.slice(0, 1)) {
                         case "H":
                             ctx.fillStyle = "red";
-                            $("#hearts").toggleClass("hidden");
                             ctx.drawImage(hearts, x, y);
-                            $("#hearts").toggleClass("hidden");
                         break;
                         case "D":
                             ctx.fillStyle = "red";
-                            $("#diamonds").toggleClass("hidden");
                             ctx.drawImage(diamonds, x, y);
-                            $("#diamonds").toggleClass("hidden");
                         break;
                         case "S":
                             ctx.fillStyle = "black";
-                            $("#spades").toggleClass("hidden");
                             ctx.drawImage(spades, x, y);
-                            $("#spades").toggleClass("hidden");
                         break;
                         case "C":
                             ctx.fillStyle = "black";
-                            $("#clubs").toggleClass("hidden");
                             ctx.drawImage(clubs, x, y);
-                            $("#clubs").toggleClass("hidden");
                         break;
                     }
 
                     // Draw the card's value in the top left and bottom right
-                    ctx.font = "16px Arial";
+                    ctx.font = "8px Arial";
                     ctx.textBaseline = "top";
                     ctx.fillText(name.slice(1), x+10, y+10);
                 }
