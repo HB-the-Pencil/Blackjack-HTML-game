@@ -10,6 +10,12 @@
         <meta name="author"
             content="HB_the_Pencil (Henry Barcalow)">
         <title>Blackjack Game</title>
+
+        <style>
+            .hidden {
+                display: none;
+            }
+        </style>
     </head>
     <body>
         <canvas id="blackjackCanvas" width=1000 height=500 style="border: 15px outset #002C12"</canvas>
@@ -30,20 +36,29 @@
                 ctx.strokeRect(x, y, 50, 75);
                 ctx.fillRect(x, y, 50, 75);
 
+                hearts = document.getElementById("hearts");
+                diamonds = document.getElementById("diamonds");
+                spades = document.getElementById("spades");
+                clubs = document.getElementById("clubs");
+                
+                hearts.classList.remove("hidden");
+                diamonds.classList.remove("hidden");
+                spades.classList.remove("hidden");
+                clubs.classList.remove("hidden");
                 // Draw the face of the card.
                 if (faceUp) {
                     switch (name.slice(0, 1)) {
                         case "H":
-                            ctx.drawImage("images/hearts.png", x, y);
+                            ctx.drawImage(hearts, x, y);
                         break;
                         case "D":
-                            ctx.drawImage("images/diamonds.png", x, y);
+                            ctx.drawImage(diamonds, x, y);
                         break;
                         case "S":
-                            ctx.drawImage("images/spades.png", x, y);
+                            ctx.drawImage(spades, x, y);
                         break;
                         case "C":
-                            ctx.drawImage("images/clubs.png", x, y);
+                            ctx.drawImage(clubs, x, y);
                         break;
                     }
 
@@ -60,5 +75,10 @@
             drawCard("CJ", 160, 210, true);
             drawCard("C10", 220, 210, false);
         </script>
+
+        <img id="hearts" src="images/hearts.png" class="hidden">
+        <img id="diamonds" src="images/diamonds.png" class="hidden">
+        <img id="spades" src="images/spades.png" class="hidden">
+        <img id="clubs" src="images/clubs.png" class="hidden">
     </body>
 </html>
