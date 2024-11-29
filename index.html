@@ -208,8 +208,8 @@
                     }
                     
                     function bet() {
-                        if (betAmount <= 100) {
-                            betAmount = Math.round(document.getElementById("betAmount").value);
+                        betAmount = Math.round(document.getElementById("betAmount").value);
+                        if (betAmount >= 100 && betAmount <= money) {
                             money -= betAmount;
                             infoMessage = "";
                             deck = initializeDeck();
@@ -232,8 +232,11 @@
                             if (money < 100) {
                                 infoMessage = "You went broke... Reload to play again.";
                             }
+                            else if (betAmount > money) {
+                                infoMessage = "Can't bet more than you have.";
+                            }
                             else {
-                                infoMessage = "Can't bet less than $100."
+                                infoMessage = "Can't bet less than $100.";
                             }
                         }
                     }
