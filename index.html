@@ -208,17 +208,8 @@
                     }
                     
                     function bet() {
-                        if (betAmount == 0) {
+                        if (betAmount <= 100) {
                             betAmount = Math.round(document.getElementById("betAmount").value);
-                            if (betAmount < 100) {
-                                if (money < 100) {
-                                    infoMessage = "You went broke... Reload to play again.";
-                                }
-                                else {
-                                    infoMessage = "Can't bet less than $100."
-                                }
-                                return
-                            }
                             money -= betAmount;
                             infoMessage = "";
                             deck = initializeDeck();
@@ -235,6 +226,14 @@
                             }
                             else if (scoreHand(dealerHand) == 21) {
                                 winner = "dealer";
+                            }
+                        }
+                        else {
+                            if (money < 100) {
+                                infoMessage = "You went broke... Reload to play again.";
+                            }
+                            else {
+                                infoMessage = "Can't bet less than $100."
                             }
                         }
                     }
