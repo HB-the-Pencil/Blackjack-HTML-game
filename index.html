@@ -11,336 +11,387 @@
             content="HB_the_Pencil (Henry Barcalow)">
         <title>Blackjack Game</title>
 
+        <link rel="icon" href="images/spades icon.png">
+
         <style>
+            body {
+                background-color: #DDDDDD;
+                font-family: Rockwell, serif;
+            }
             img {
                 display: none;
                 padding: 0px;
             }
+            button {
+                font-size: 16px;
+                background-color: DodgerBlue;
+                border-radius: 6px;
+                border-color: "2px solid black";
+                padding: 4px 10px;
+            }
+            #placeBet {
+                font-size: 14px;
+                background-color: DarkOrchid;
+                border-radius: 6px;
+                border-color: "2px outset #333333";
+                padding: 2px 6px;
+            }
+            #continue {
+                font-size: 16px;
+                background-color: Crimson;
+                color: white;
+                border-radius: 6px;
+                border-color: "2px solid #FFFFFF";
+            }
+            #hitStand {
+                padding: 5px 0px;
+            }
+            #main {
+                padding: 10px;
+            }
         </style>
     </head>
     <body onload="updateUI()">
-        <img id="hearts" src="images/hearts.png" class="hidden">
-        <img id="diamonds" src="images/diamonds.png" class="hidden">
-        <img id="spades" src="images/spades.png" class="hidden">
-        <img id="clubs" src="images/clubs.png" class="hidden">
-        <div id="game">
-            <canvas id="blackjackCanvas" width=800 height=400 style="border: 15px outset #333333"></canvas>
-            <script>
-                /*
-                    Dear future me,
-
-                    This code is a mess.
-
-                    There are too many functions and too many global variables.
-
-                    you're welcome :3
-
-                    sorry :3
-
-                */
-                const canvas = document.getElementById("blackjackCanvas");
-                const ctx = canvas.getContext("2d");
-                
-                function drawCard(name, x, y, faceUp = true) {
-                    // Set the border and background (if the card is facedown, draw the back).
-                    ctx.strokeStyle = "black";
-                    ctx.lineWidth = 6;
-                    if (!faceUp) {
-                        ctx.fillStyle = "blue";
-                    }
-                    else {
-                        ctx.fillStyle = "white";
-                    }
-                    ctx.strokeRect(x, y, 50, 75);
-                    ctx.fillRect(x, y, 50, 75);
+        <div id="main">
+            <img id="hearts" src="images/hearts.png" class="hidden">
+            <img id="diamonds" src="images/diamonds.png" class="hidden">
+            <img id="spades" src="images/spades.png" class="hidden">
+            <img id="clubs" src="images/clubs.png" class="hidden">
+            <div id="game">
+                <canvas id="blackjackCanvas" width=800 height=400 style="border: 15px outset #333333"></canvas>
+                <script>
+                    /*
+                        Dear future me,
     
-                    hearts = document.getElementById("hearts");
-                    diamonds = document.getElementById("diamonds");
-                    spades = document.getElementById("spades");
-                    clubs = document.getElementById("clubs");
+                        This code is a mess.
     
-                    hearts.classList.remove("hidden");
-                    diamonds.classList.remove("hidden");
-                    spades.classList.remove("hidden");
-                    clubs.classList.remove("hidden");
+                        There are too many functions and too many global variables.
+    
+                        you're welcome :3
+    
+                        sorry :3
+    
+                    */
+                    const canvas = document.getElementById("blackjackCanvas");
+                    const ctx = canvas.getContext("2d");
                     
-                    // Draw the face of the card.
-                    if (faceUp) {
-                        switch (name.slice(0, 1)) {
-                            case "H":
-                                ctx.fillStyle = "red";
-                                ctx.drawImage(hearts, x, y);
-                            break;
-                            case "D":
-                                ctx.fillStyle = "red";
-                                ctx.drawImage(diamonds, x, y);
-                            break;
-                            case "S":
-                                ctx.fillStyle = "black";
-                                ctx.drawImage(spades, x, y);
-                            break;
-                            case "C":
-                                ctx.fillStyle = "black";
-                                ctx.drawImage(clubs, x, y);
-                            break;
-                        }
-    
-                        // Draw the card's value in the corner
-                        ctx.font = "12px Arial";
-                        ctx.textBaseline = "top";
-                        ctx.fillText(name.slice(1), x+10, y+10);
-                    }
-                }
-    
-                function initializeDeck() {
-                    var deck = [];
-        
-                    for (var i = 0; i < 4; i++) {
-                        var suits = ["H", "D", "S", "C"];
-                        for (var j = 2; j < 15; j++) {
-                            var value = j == 11? "J": j == 12? "Q": j == 13? "K": j == 14? "A": j.toString()
-                        deck.push(suits[i] + value);
-                        }
-                    }
-    
-                    // Thanks StackOverflow :D
-                    // I was wondering if this was fast enough
-                    for (var i = deck.length - 1; i >= 0; i--) {
-                        var j = Math.floor(Math.random() * (i + 1));
-                        [deck[i], deck[j]] = [deck[j], deck[i]];
-                    }
-    
-                    return deck;
-                }
-                
-                function scoreHand(hand) {
-                    var temp = [];
-                    acesToAdd = 0;
-                    for (var i in hand) {
-                        if (hand[i].slice(1) == "A") {
-                            acesToAdd++;
+                    function drawCard(name, x, y, faceUp = true) {
+                        // Set the border and background (if the card is facedown, draw the back).
+                        ctx.strokeStyle = "black";
+                        ctx.lineWidth = 6;
+                        if (!faceUp) {
+                            ctx.fillStyle = "blue";
                         }
                         else {
-                            temp.push(hand[i].slice(1));
+                            ctx.fillStyle = "white";
+                        }
+                        ctx.strokeRect(x, y, 50, 75);
+                        ctx.fillRect(x, y, 50, 75);
+        
+                        hearts = document.getElementById("hearts");
+                        diamonds = document.getElementById("diamonds");
+                        spades = document.getElementById("spades");
+                        clubs = document.getElementById("clubs");
+        
+                        hearts.classList.remove("hidden");
+                        diamonds.classList.remove("hidden");
+                        spades.classList.remove("hidden");
+                        clubs.classList.remove("hidden");
+                        
+                        // Draw the face of the card.
+                        if (faceUp) {
+                            switch (name.slice(0, 1)) {
+                                case "H":
+                                    ctx.fillStyle = "red";
+                                    ctx.drawImage(hearts, x, y);
+                                break;
+                                case "D":
+                                    ctx.fillStyle = "red";
+                                    ctx.drawImage(diamonds, x, y);
+                                break;
+                                case "S":
+                                    ctx.fillStyle = "black";
+                                    ctx.drawImage(spades, x, y);
+                                break;
+                                case "C":
+                                    ctx.fillStyle = "black";
+                                    ctx.drawImage(clubs, x, y);
+                                break;
+                            }
+        
+                            // Draw the card's value in the corner
+                            ctx.font = "12px Arial";
+                            ctx.textBaseline = "top";
+                            ctx.fillText(name.slice(1), x+10, y+10);
                         }
                     }
-                    for (var i = 0; i < acesToAdd; i++) {
-                        temp.push("A");
-                    }
-                    var score = 0;
-                    for (var i in temp) {
-                        var value = temp[i];
-                        switch (value) {
-                            case "J":
-                            case "Q":
-                            case "K":
-                                score += 10;
-                            break;
-                            case "A":
-                                // If the score is greater than 10 or there's another ace, it has to be 1.
-                                if (score <= 10) {
-                                    score += 11;
-                                }
-                                else {
-                                    if (temp.indexOf("A", i) != -1) {
-                                        score += 1;
-                                    }
-                                    // for some reason, this seems to work?...
-                                }
-                            break;
-                            default:
-                                score += parseInt(value);
+        
+                    function initializeDeck() {
+                        var deck = [];
+            
+                        for (var i = 0; i < 4; i++) {
+                            var suits = ["H", "D", "S", "C"];
+                            for (var j = 2; j < 15; j++) {
+                                var value = j == 11? "J": j == 12? "Q": j == 13? "K": j == 14? "A": j.toString()
+                            deck.push(suits[i] + value);
+                            }
                         }
+        
+                        // Thanks StackOverflow :D
+                        // I was wondering if this was fast enough
+                        for (var i = deck.length - 1; i >= 0; i--) {
+                            var j = Math.floor(Math.random() * (i + 1));
+                            [deck[i], deck[j]] = [deck[j], deck[i]];
+                        }
+        
+                        return deck;
                     }
-    
-                    return score;
-                }
-                
-                var money = 5000;
-                var betAmount = 0;
-                var standing = false;
-                var playerHand, dealerHand = [];
-                var playerBust, dealerBust = false;
-                var winner = "";
-
-                var infoMessage = "Place a bet to begin!";
-                
-                function updateUI() {
-                    var label = document.getElementById("betDiv");
-                    label.innerHTML = `<label id="betLabel" for="betAmount">Bet Amount (Balance: ${money}):</label>`
-                    var betAmount = document.getElementById("betAmountDiv");
-                    betAmount.innerHTML = `<input type="number" name="betAmount" id="betAmount" min="100" max="${money}" value="${Math.round(money/50)*10}" step="100"/>`
-                }
-                
-                function bet() {
-                    if (betAmount == 0) {
-                        betAmount = Math.round(document.getElementById("betAmount").value);
-                        if (betAmount < 100) {
-                            if (money < 100) {
-                                infoMessage = "You went broke... Reload to play again.";
+                    
+                    function scoreHand(hand) {
+                        var temp = [];
+                        acesToAdd = 0;
+                        for (var i in hand) {
+                            if (hand[i].slice(1) == "A") {
+                                acesToAdd++;
                             }
                             else {
-                                infoMessage = "Can't bet less than $100."
+                                temp.push(hand[i].slice(1));
                             }
-                            return
                         }
-                        money -= betAmount;
-                        infoMessage = "";
-                        deck = initializeDeck();
-                        playerHand = [deck.pop(), deck.pop()];
-                        dealerHand = [deck.pop(), deck.pop()];
+                        for (var i = 0; i < acesToAdd; i++) {
+                            temp.push("A");
+                        }
+                        var score = 0;
+                        for (var i in temp) {
+                            var value = temp[i];
+                            switch (value) {
+                                case "J":
+                                case "Q":
+                                case "K":
+                                    score += 10;
+                                break;
+                                case "A":
+                                    // If the score is greater than 10 or there's another ace, it has to be 1.
+                                    if (score <= 10) {
+                                        score += 11;
+                                    }
+                                    else {
+                                        if (temp.indexOf("A", i) != -1) {
+                                            score += 1;
+                                        }
+                                        // for some reason, this seems to work?...
+                                    }
+                                break;
+                                default:
+                                    score += parseInt(value);
+                            }
+                        }
+        
+                        return score;
+                    }
+                    
+                    var money = 5000;
+                    var betAmount = 0;
+                    var standing = false;
+                    var playerHand, dealerHand = [];
+                    var playerBust, dealerBust = false;
+                    var winner = "";
     
+                    var infoMessage = "Place a bet to begin!";
+                    
+                    function updateUI() {
+                        var label = document.getElementById("betDiv");
+                        label.innerHTML = `<label id="betLabel" for="betAmount">Bet Amount (Balance: ${money}):</label>`
+                        var betAmount = document.getElementById("betAmountDiv");
+                        betAmount.innerHTML = `<input type="number" name="betAmount" id="betAmount" min="100" max="${money}" value="${Math.round(money/50)*10}" step="100"/>`
+                    }
+                    
+                    function bet() {
+                        if (betAmount == 0) {
+                            betAmount = Math.round(document.getElementById("betAmount").value);
+                            if (betAmount < 100) {
+                                if (money < 100) {
+                                    infoMessage = "You went broke... Reload to play again.";
+                                }
+                                else {
+                                    infoMessage = "Can't bet less than $100."
+                                }
+                                return
+                            }
+                            money -= betAmount;
+                            infoMessage = "";
+                            deck = initializeDeck();
+                            playerHand = [deck.pop(), deck.pop()];
+                            dealerHand = [deck.pop(), deck.pop()];
+        
+                            updateUI();
+                            
+                            if (scoreHand(playerHand) == 21 && scoreHand(dealerHand) == 21) {
+                                winner = "tie";
+                            }
+                            else if (scoreHand(playerHand) == 21) {
+                                winner = "bj_player";
+                            }
+                            else if (scoreHand(dealerHand) == 21) {
+                                winner = "dealer";
+                            }
+                        }
+                    }
+                    
+                    function hit() {
+                        if (betAmount > 0) {
+                            playerHand.push(deck.pop());
+                        }
+                        if (scoreHand(playerHand) > 21) {
+                            playerBust = true;
+                            standing = true;
+                        }
+                    }
+                    
+                    function stand() {
+                        if (betAmount > 0) {
+                            standing = true;
+                        }
+                    }
+    
+                    function nextHand() {
+                        if (winner != "") {
+                            standing = false;
+                            playerHand = [];
+                            dealerHand = [];
+                            playerBust = false;
+                            dealerBust = false;
+                            winner = "";
+    
+                            infoMessage = "Place a bet to play again!";
+    
+                            var continueButton = document.getElementById("continue");
+                            continueButton.style.display = "none";
+    
+                            var hitButton = document.getElementById("hitButton");
+                            hitButton.style = "opacity: 1.0; cursor: default;";
+                            var standButton = document.getElementById("standButton");
+                            standButton.style = "opacity: 1.0; cursor: default;";
+                            var betButton = document.getElementById("placeBet");
+                            betButton.style = "opacity: 1.0; cursor: default;";
+                        }
                         updateUI();
-                        
-                        if (scoreHand(playerHand) == 21 && scoreHand(dealerHand) == 21) {
-                            winner = "tie";
+                    }
+    
+                    function checkWinner() {
+                        if (scoreHand(dealerHand) < 17) {
+                            dealerHand.push(deck.pop());
                         }
-                        else if (scoreHand(playerHand) == 21) {
-                            winner = "bj_player";
+                        if (scoreHand(dealerHand) > 21) {
+                            dealerBust = true;
                         }
-                        else if (scoreHand(dealerHand) == 21) {
+    
+                        if (playerBust) {
                             winner = "dealer";
-                        }
-                    }
-                }
-                
-                function hit() {
-                    if (betAmount > 0) {
-                        playerHand.push(deck.pop());
-                    }
-                    if (scoreHand(playerHand) > 21) {
-                        playerBust = true;
-                        standing = true;
-                    }
-                }
-                
-                function stand() {
-                    if (betAmount > 0) {
-                        standing = true;
-                    }
-                }
-
-                function nextHand() {
-                    if (winner != "") {
-                        standing = false;
-                        playerHand = [];
-                        dealerHand = [];
-                        playerBust = false;
-                        dealerBust = false;
-                        winner = "";
-
-                        infoMessage = "Place a bet to play again!";
-
-                        var continueButton = document.getElementById("continue");
-                        continueButton.style.display = "none";
-                    }
-                    updateUI();
-                }
-
-                function checkWinner() {
-                    if (scoreHand(dealerHand) < 17) {
-                        dealerHand.push(deck.pop());
-                    }
-                    if (scoreHand(dealerHand) > 21) {
-                        dealerBust = true;
-                    }
-
-                    if (playerBust) {
-                        winner = "dealer";
-                        infoMessage = "Dealer wins because you busted!";
-                        betAmount = 0;
-                    }
-                    else if (dealerBust) {
-                        winner = "player";
-                        infoMessage = "You win because the dealer busted!";
-                    }
-                    else {
-                        if (scoreHand(playerHand) > scoreHand(dealerHand)) {
-                            winner = "player";
-                            infoMessage = "You win!";
-                        }
-                        else if (scoreHand(playerHand) < scoreHand(dealerHand)) {
-                            winner = "dealer";
-                            infoMessage = "Dealer wins!";
+                            infoMessage = "Dealer wins because you busted!";
                             betAmount = 0;
                         }
-                        else {
-                            winner = "tie";
-                            infoMessage = "You and the dealer tied!";
+                        else if (dealerBust) {
+                            winner = "player";
+                            infoMessage = "You win because the dealer busted!";
                         }
+                        else {
+                            if (scoreHand(playerHand) > scoreHand(dealerHand)) {
+                                winner = "player";
+                                infoMessage = "You win!";
+                            }
+                            else if (scoreHand(playerHand) < scoreHand(dealerHand)) {
+                                winner = "dealer";
+                                infoMessage = "Dealer wins!";
+                                betAmount = 0;
+                            }
+                            else {
+                                winner = "tie";
+                                infoMessage = "You and the dealer tied!";
+                            }
+                        }
+                        updateUI();
                     }
-                    updateUI();
-                }
-                
-                function draw() {
-                    ctx.fillStyle = "green" 
-                    ctx.fillRect(0, 0, 1000, 500); 
-                    for (i in playerHand) {
-                        drawCard(playerHand[i], 60*i+25, 300);
-                    }
+                    
+                    function draw() {
+                        ctx.fillStyle = "green" 
+                        ctx.fillRect(0, 0, 1000, 500); 
+                        for (i in playerHand) {
+                            drawCard(playerHand[i], 60*i+25, 300);
+                        }
+        
+                        for (i in dealerHand) {
+                            if (i == 0 && !standing) {
+                                drawCard(dealerHand[i], 60*i+25, 50, false);
+                            }
+                            else {
+                                drawCard(dealerHand[i], 60*i+25, 50);
+                            }
+                        }
     
-                    for (i in dealerHand) {
-                        if (i == 0 && !standing) {
-                            drawCard(dealerHand[i], 60*i+25, 50, false);
+                        if (standing) {
+                            var hitButton = document.getElementById("hitButton");
+                            hitButton.style = "opacity: 0.6; cursor: not-allowed;";
+                            var standButton = document.getElementById("standButton");
+                            standButton.style = "opacity: 0.6; cursor: not-allowed;";
+                            checkWinner();
                         }
-                        else {
-                            drawCard(dealerHand[i], 60*i+25, 50);
+    
+                        if (winner == "player") {
+                            money += betAmount * 2;
+                            betAmount = 0;
                         }
-                    }
-
-                    if (standing) {
-                        checkWinner();
-                    }
-
-                    if (winner == "player") {
-                        money += betAmount * 2;
-                        betAmount = 0;
-                    }
-                    if (winner == "bj_player") {
-                        money += Math.round(betAmount * 1.5);
-                        betAmount = 0;
-                    }
-                    if (winner == "tie") {
-                        money += betAmount;
-                        betAmount = 0;
+                        if (winner == "bj_player") {
+                            money += Math.round(betAmount * 1.5);
+                            betAmount = 0;
+                        }
+                        if (winner == "tie") {
+                            money += betAmount;
+                            betAmount = 0;
+                        }
+                        
+                        ctx.font = "20px Arial";
+                        ctx.textBaseline = "top";
+                        
+                        ctx.fillStyle = "black";
+                        ctx.fillText("Your Score: " + scoreHand(playerHand) + (playerBust? " - Bust!": ""), 25, 270);
+    
+                        ctx.fillText(infoMessage, 25, 175);
+    
+                        ctx.fillStyle = standing? "black": "green";
+                        ctx.fillText("Dealer Score: " + scoreHand(dealerHand) + (dealerBust? " - Bust!": ""), 25, 20);
+    
+                        if (winner != "") {
+                            // so you can't hit
+                            standing = true;
+                            var continueButton = document.getElementById("continue");
+                            continueButton.style.display = "inline";
+                        }
+                        
+                        if (betAmount > 0) {
+                            var betButton = document.getElementById("placeBet");
+                            betButton.style = "opacity: 0.6; cursor: not-allowed;";
+                        }
+                        window.requestAnimationFrame(draw);
                     }
                     
-                    ctx.font = "20px Arial";
-                    ctx.textBaseline = "top";
-                    
-                    ctx.fillStyle = "black";
-                    ctx.fillText("Your Score: " + scoreHand(playerHand) + (playerBust? " - Bust!": ""), 25, 270);
-
-                    ctx.fillText(infoMessage, 25, 150);
-
-                    ctx.fillStyle = standing? "black": "green";
-                    ctx.fillText("Dealer Score: " + scoreHand(dealerHand) + (dealerBust? " - Bust!": ""), 25, 20);
-
-                    if (winner != "") {
-                        // so you can't hit
-                        standing = true;
-                        var continueButton = document.getElementById("continue");
-                        continueButton.style.display = "inline";
-                    }
                     window.requestAnimationFrame(draw);
-                }
+                </script>
+            </div>
+            <div id="ui">
+                <span id="betDiv">
+                    <label id="betLabel" for="betAmount">Bet Amount:</label>
+                </span>
                 
-                window.requestAnimationFrame(draw);
-            </script>
-        </div>
-        <div id="ui">
-            <span id="betDiv">
-                <label id="betLabel" for="betAmount">Bet Amount:</label>
-            </span>
-            
-            <span id="betAmountDiv">
-                <input type="number" name="betAmount" id="betAmount" min="100" max="10000" value="1000" step="100"/>
-            </span>
-            <button id="placeBet" onclick="bet()">Place Bet</button>
-            <div id="hitStand">
-                <button onclick="hit()">Hit</button>
-                <button onclick="stand()">Stand</button>
-                <button id="continue" onclick="nextHand()" style="display:none">Continue</button>
+                <span id="betAmountDiv">
+                    <input type="number" name="betAmount" id="betAmount" min="100" max="10000" value="1000" step="100"/>
+                </span>
+                <button id="placeBet" onclick="bet()">Place Bet</button>
+                <div id="hitStand">
+                    <button id="hitButton" onclick="hit()">Hit</button>
+                    <button id="standButton" onclick="stand()">Stand</button>
+                    <button id="continue" onclick="nextHand()" style="display:none">Continue</button>
+                </div>
             </div>
         </div>
     </body>
