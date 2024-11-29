@@ -24,7 +24,7 @@
         <img id="spades" src="images/spades.png" class="hidden">
         <img id="clubs" src="images/clubs.png" class="hidden">
         <div id="game">
-            <canvas id="blackjackCanvas" width=1000 height=500 style="border: 15px outset #333333"></canvas>
+            <canvas id="blackjackCanvas" width=800 height=400 style="border: 15px outset #333333"></canvas>
             <script>
                 /*
                     Dear future me,
@@ -40,11 +40,6 @@
                 */
                 const canvas = document.getElementById("blackjackCanvas");
                 const ctx = canvas.getContext("2d");
-                
-                ctx.fillStyle = "black";
-                ctx.font = "20px Arial";
-                ctx.textBaseline = "top";
-                ctx.fillText("Place a bet to begin!", 50, 50);
                 
                 function drawCard(name, x, y, faceUp = true) {
                     // Set the border and background (if the card is facedown, draw the back).
@@ -281,7 +276,7 @@
                     ctx.fillStyle = "green" 
                     ctx.fillRect(0, 0, 1000, 500); 
                     for (i in playerHand) {
-                        drawCard(playerHand[i], 60*i+25, 400);
+                        drawCard(playerHand[i], 60*i+25, 300);
                     }
     
                     for (i in dealerHand) {
@@ -314,7 +309,7 @@
                     ctx.textBaseline = "top";
                     
                     ctx.fillStyle = "black";
-                    ctx.fillText("Your Score: " + scoreHand(playerHand) + (playerBust? " - Bust!": ""), 25, 370);
+                    ctx.fillText("Your Score: " + scoreHand(playerHand) + (playerBust? " - Bust!": ""), 25, 270);
 
                     ctx.fillText(infoMessage, 25, 250);
 
