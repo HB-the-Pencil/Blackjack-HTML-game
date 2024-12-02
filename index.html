@@ -217,6 +217,8 @@
                     }
                     
                     function bet() {
+                        var continueButton = document.getElementById("continue");
+                        continueButton.style.display = "none";
                         betAmount = Math.round(document.getElementById("betAmount").value);
                         if (betAmount >= 100 && betAmount <= money) {
                             money -= betAmount;
@@ -279,9 +281,7 @@
                             continueButton.style.display = "none";
 
                             if (money < 100 && betAmount == 0) {
-                                infoMessage = "You went broke... Press Continue to play again.";
-                                var continueButton = document.getElementById("continue");
-                                continueButton.style.display = "inline";
+                                infoMessage = "You went broke... Don't worry, you got $5000 for free!";
                             }
     
                             var hitButton = document.getElementById("hitButton");
