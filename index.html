@@ -220,7 +220,7 @@
                         var continueButton = document.getElementById("continue");
                         continueButton.style.display = "none";
                         betAmount = Math.round(document.getElementById("betAmount").value);
-                        if (betAmount >= 100 && betAmount <= money) {
+                        if (betAmount >= 100 && betAmount <= money && playerHand.length == 0) {
                             money -= betAmount;
                             infoMessage = "";
                             deck = initializeDeck();
