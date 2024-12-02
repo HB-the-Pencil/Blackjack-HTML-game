@@ -85,6 +85,7 @@
                         // Set the border and background (if the card is facedown, draw the back).
                         ctx.strokeStyle = "black";
                         ctx.lineWidth = 6;
+                        
                         if (!faceUp) {
                             ctx.fillStyle = "blue";
                         }
@@ -201,6 +202,7 @@
                     var money = 5000;
                     var betAmount = 0;
                     var standing = false;
+                    var deck = initializeDeck();
                     var playerHand, dealerHand = [];
                     var playerBust, dealerBust = false;
                     var winner = "";
@@ -212,6 +214,11 @@
                         label.innerHTML = `<label id="betLabel" for="betAmount">Bet Amount (Balance: ${money}):</label>`
                         var betAmount = document.getElementById("betAmountDiv");
                         betAmount.innerHTML = `<input type="number" name="betAmount" id="betAmount" min="100" max="${money}" value="${Math.round(money/50)*10}" step="100"/>`
+                        if (money < 100) {
+                            infoMessage = "You went broke... Press Continue to play again.";
+                            var continueButton = document.getElementById("continue");
+                            continueButton.style.display = "inline";
+                        }
                     }
                     
                     function bet() {
@@ -236,10 +243,7 @@
                             }
                         }
                         else {
-                            if (money < 100) {
-                                infoMessage = "You went broke... Reload to play again.";
-                            }
-                            else if (betAmount > money) {
+                            if (betAmount > money) {
                                 infoMessage = "Can't bet more than you have.";
                             }
                             else {
@@ -255,6 +259,7 @@
                         if (scoreHand(playerHand) > 21) {
                             playerBust = true;
                             standing = true;
+                            winner = "dealer";
                         }
                     }
                     
@@ -285,11 +290,14 @@
                             var betButton = document.getElementById("placeBet");
                             betButton.style = "opacity: 1.0; cursor: default;";
                         }
+                        if (money < 100) {
+                            money = 5000;
+                        }
                         updateUI();
                     }
     
                     function checkWinner() {
-                        if (scoreHand(dealerHand) < 17) {
+                        if (scoreHand(dealerHand) < 17 && winner == "") {
                             dealerHand.push(deck.pop());
                         }
                         if (scoreHand(dealerHand) > 21) {
@@ -337,6 +345,10 @@
                             else {
                                 drawCard(dealerHand[i], 60*i+25, 50);
                             }
+                        }
+
+                        if (deck.length > 0 && betAmount > 0) {
+                            drawCard("XX", 400, 175, false);
                         }
     
                         if (standing) {
