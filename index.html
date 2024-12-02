@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--merry christmas, bestie-->
 <html lang="en-US">
     <head>
         <meta charset="UTF-8">
@@ -58,6 +59,7 @@
             <img id="diamonds" src="images/diamonds.png" class="hidden">
             <img id="spades" src="images/spades.png" class="hidden">
             <img id="clubs" src="images/clubs.png" class="hidden">
+            <img id="violet" src="images/violet card.png" class="hidden">
             <div id="game">
                 <canvas id="blackjackCanvas" width=800 height=400 style="border: 15px outset #333333"></canvas>
                 <script>
@@ -77,6 +79,9 @@
                     const ctx = canvas.getContext("2d");
                     
                     function drawCard(name, x, y, faceUp = true) {
+                        violet = document.getElementById("violet");
+                        violet.classList.remove("hidden");
+                        
                         // Set the border and background (if the card is facedown, draw the back).
                         ctx.strokeStyle = "black";
                         ctx.lineWidth = 6;
@@ -118,12 +123,14 @@
                                     ctx.fillStyle = "black";
                                     ctx.drawImage(clubs, x, y);
                                 break;
-                            }
-        
+                            }        
                             // Draw the card's value in the corner
                             ctx.font = "12px Arial";
                             ctx.textBaseline = "top";
                             ctx.fillText(name.slice(1), x+10, y+10);
+                        }
+                        else {
+                            ctx.drawImage(violet, x, y);
                         }
                     }
         
