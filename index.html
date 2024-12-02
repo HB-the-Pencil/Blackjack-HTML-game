@@ -214,11 +214,6 @@
                         label.innerHTML = `<label id="betLabel" for="betAmount">Bet Amount (Balance: ${money}):</label>`
                         var betAmount = document.getElementById("betAmountDiv");
                         betAmount.innerHTML = `<input type="number" name="betAmount" id="betAmount" min="100" max="${money}" value="${Math.round(money/50)*10}" step="100"/>`
-                        if (money < 100 && betAmount == 0) {
-                            infoMessage = "You went broke... Press Continue to play again.";
-                            var continueButton = document.getElementById("continue");
-                            continueButton.style.display = "inline";
-                        }
                     }
                     
                     function bet() {
@@ -282,6 +277,12 @@
     
                             var continueButton = document.getElementById("continue");
                             continueButton.style.display = "none";
+
+                            if (money < 100 && betAmount == 0) {
+                                infoMessage = "You went broke... Press Continue to play again.";
+                                var continueButton = document.getElementById("continue");
+                                continueButton.style.display = "inline";
+                            }
     
                             var hitButton = document.getElementById("hitButton");
                             hitButton.style = "opacity: 1.0; cursor: default;";
