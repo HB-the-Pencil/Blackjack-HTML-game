@@ -214,7 +214,7 @@
                         label.innerHTML = `<label id="betLabel" for="betAmount">Bet Amount (Balance: ${money}):</label>`
                         var betAmount = document.getElementById("betAmountDiv");
                         betAmount.innerHTML = `<input type="number" name="betAmount" id="betAmount" min="100" max="${money}" value="${Math.round(money/50)*10}" step="100"/>`
-                        if (money < 100 && betAmount = 0) {
+                        if (money < 100 && betAmount == 0) {
                             infoMessage = "You went broke... Press Continue to play again.";
                             var continueButton = document.getElementById("continue");
                             continueButton.style.display = "inline";
